@@ -7,10 +7,12 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.geektech.taskmanager.databinding.ActivityMainBinding
+import com.geektech.taskmanager.ui.home.HomeFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +27,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        navController.navigate(HomeFragmentDirections.actionNavigationHomeToOnBoardingFragment())
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -36,9 +37,19 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
+        val bottomNavFragments = arrayListOf(
+            R.id.navigation_home,
+            R.id.navigation_dashboard,
+            R.id.navigation_notifications
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            navView.isVisible = destination.id != R.id.taskFragment
+            navView.isVisible = bottomNavFragments.contains(destination.id)
+            if (destination.id == R.id.onBoardingFragment){
+                supportActionBar?.hide()
+            }else{
+                supportActionBar?.show()
+            }
         }
         navView.setupWithNavController(navController)
     }

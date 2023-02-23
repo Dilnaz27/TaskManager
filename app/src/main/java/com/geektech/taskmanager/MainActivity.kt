@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavFragments = arrayListOf(
             R.id.navigation_home,
             R.id.navigation_dashboard,
-            R.id.navigation_notifications
+            R.id.navigation_notifications,
+            R.id.profileFragment
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->

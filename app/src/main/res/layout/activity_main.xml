@@ -29,4 +29,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/nav_host_fragment_activity_main"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

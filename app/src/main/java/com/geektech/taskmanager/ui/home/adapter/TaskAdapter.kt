@@ -1,19 +1,25 @@
 package com.geektech.taskmanager.ui.home.adapter
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.geektech.taskmanager.data.local.room.TaskDao
 import com.geektech.taskmanager.databinding.ItemTaskBinding
 import com.geektech.taskmanager.model.Task
 
-class TaskAdapter : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val onClick:(Task)-> Unit) : Adapter<TaskAdapter.TaskViewHolder>(){
     private val data = arrayListOf<Task>()
 
-    fun addTask(task: Task) {
-        data.add(0, task)
-        notifyItemChanged(0)
+    fun addTask(tasks: List<Task>) {
+        data.clear()
+        data.addAll(tasks)
+        notifyDataSetChanged()
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
@@ -34,12 +40,20 @@ class TaskAdapter : Adapter<TaskAdapter.TaskViewHolder>() {
     }
 
     inner class TaskViewHolder(private val binding: ItemTaskBinding) : ViewHolder(binding.root) {
+
+
         fun bind(task: Task) {
             with(binding) {
                 tittle.text = task.tittle
                 description.text = task.description
+                itemView.setOnLongClickListener {
+                    onClick(task)
+                    false
+                }
             }
         }
+
+
 
     }
 }

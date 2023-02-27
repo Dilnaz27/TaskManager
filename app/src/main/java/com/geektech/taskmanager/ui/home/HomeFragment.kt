@@ -1,12 +1,14 @@
 package com.geektech.taskmanager.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.geektech.taskmanager.App
 import com.geektech.taskmanager.R
 import com.geektech.taskmanager.databinding.FragmentHomeBinding
 import com.geektech.taskmanager.model.Task
@@ -20,7 +22,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TaskAdapter()
+        adapter = TaskAdapter(this::onClick)
 
     }
 
@@ -38,11 +40,32 @@ class HomeFragment : Fragment() {
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
-        setFragmentResultListener(RESULT_KEY) { key, bundle ->
-            val result = bundle.getSerializable(TASK_KEY) as Task
-            adapter.addTask(result)
-        }
+        setData()
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun setData() {
+        val tasks = App.db.taskDao().getAll()
+        adapter.addTask(tasks)
+    }
+
+    private fun onClick(task:Task){
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            alertDialog.setTitle("Deleting the task")
+        alertDialog.setMessage("Are you sure you want to delete this task?")
+        alertDialog.setNegativeButton("No", object :DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.cancel()
+            }
+        })
+        alertDialog.setPositiveButton("Yes", object :DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                App.db.taskDao().delete(task)
+                setData()
+            }
+        })
+        alertDialog.create().show()
     }
 
     companion object {

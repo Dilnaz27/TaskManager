@@ -1,5 +1,6 @@
 package com.geektech.taskmanager.ui.home
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -49,17 +50,18 @@ class HomeFragment : Fragment() {
         adapter.addTask(tasks)
     }
 
-    private fun onClick(task:Task){
+    @SuppressLint("SuspiciousIndentation")
+    private fun onClick(task: Task) {
 
         val alertDialog = AlertDialog.Builder(requireContext())
-            alertDialog.setTitle("Deleting the task")
+        alertDialog.setTitle("Deleting the task")
         alertDialog.setMessage("Are you sure you want to delete this task?")
-        alertDialog.setNegativeButton("No", object :DialogInterface.OnClickListener{
+        alertDialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 dialog?.cancel()
             }
         })
-        alertDialog.setPositiveButton("Yes", object :DialogInterface.OnClickListener{
+        alertDialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 App.db.taskDao().delete(task)
                 setData()

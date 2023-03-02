@@ -10,7 +10,7 @@ import com.geektech.taskmanager.data.local.room.TaskDao
 import com.geektech.taskmanager.databinding.ItemTaskBinding
 import com.geektech.taskmanager.model.Task
 
-class TaskAdapter(private val onClick:(Task)-> Unit) : Adapter<TaskAdapter.TaskViewHolder>(){
+class TaskAdapter(private val onClick: (Task) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
     private val data = arrayListOf<Task>()
 
     fun addTask(tasks: List<Task>) {
@@ -18,7 +18,6 @@ class TaskAdapter(private val onClick:(Task)-> Unit) : Adapter<TaskAdapter.TaskV
         data.addAll(tasks)
         notifyDataSetChanged()
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -52,7 +51,6 @@ class TaskAdapter(private val onClick:(Task)-> Unit) : Adapter<TaskAdapter.TaskV
                 }
             }
         }
-
 
 
     }

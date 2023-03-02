@@ -14,20 +14,28 @@ class Pref(context: Context) {
     fun saveUserSeen() {
         pref.edit().putBoolean(SEEN_KEY, true).apply()
     }
-    @SuppressLint("CommitPrefEdits")
-    fun setUser(name:String) {
-          pref.edit().putString(NAME_KEY,name).apply()
+
+    fun setUser(name: String) {
+        pref.edit().putString(NAME_KEY, name).apply()
     }
 
     fun getUser(): String {
-      return  pref.getString(NAME_KEY,"").toString()
+        return pref.getString(NAME_KEY, "").toString()
     }
 
+    fun setImage(image: String) {
+        pref.edit().putString(IMAGE_KEY, image).apply()
+    }
+
+    fun getImage(): String {
+        return pref.getString(IMAGE_KEY, "").toString()
+    }
 
 
     companion object {
         const val PREF_NAME = "pref.task"
         const val SEEN_KEY = "seen.key"
         const val NAME_KEY = "name.key"
+        const val IMAGE_KEY = "image.key"
     }
 }

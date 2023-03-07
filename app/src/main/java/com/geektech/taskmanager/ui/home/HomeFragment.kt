@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = TaskAdapter(this::onClick)
+        adapter = TaskAdapter(this::onLongClick)
 
     }
 
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private fun onClick(task: Task) {
+    private fun onLongClick(task: Task) {
 
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Deleting the task")
@@ -68,10 +68,5 @@ class HomeFragment : Fragment() {
             }
         })
         alertDialog.create().show()
-    }
-
-    companion object {
-        const val RESULT_KEY = "request key"
-        const val TASK_KEY = "task key"
     }
 }

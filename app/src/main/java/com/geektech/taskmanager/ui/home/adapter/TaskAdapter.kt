@@ -10,7 +10,7 @@ import com.geektech.taskmanager.data.local.room.TaskDao
 import com.geektech.taskmanager.databinding.ItemTaskBinding
 import com.geektech.taskmanager.model.Task
 
-class TaskAdapter(private val onClick: (Task) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val onLongClick: (Task) -> Unit) : Adapter<TaskAdapter.TaskViewHolder>() {
     private val data = arrayListOf<Task>()
 
     fun addTask(tasks: List<Task>) {
@@ -46,12 +46,10 @@ class TaskAdapter(private val onClick: (Task) -> Unit) : Adapter<TaskAdapter.Tas
                 tittle.text = task.tittle
                 description.text = task.description
                 itemView.setOnLongClickListener {
-                    onClick(task)
+                    onLongClick(task)
                     false
                 }
             }
         }
-
-
     }
 }

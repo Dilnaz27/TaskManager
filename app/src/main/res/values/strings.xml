@@ -9,4 +9,6 @@
     <string name="profile">Profile</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
+    <string name="error_empty_value">Fill in the blank</string>
+    <string name="enter_your_name">Enter your name</string>
 </resources>

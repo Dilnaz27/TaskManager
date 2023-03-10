@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
                 dialog?.cancel()
             }
         })
+
         alertDialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 App.db.taskDao().delete(task)

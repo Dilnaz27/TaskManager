@@ -19,7 +19,6 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private lateinit var db: FirebaseFirestore
 
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -40,7 +39,7 @@ class DashboardFragment : Fragment() {
                 save()
             } else if (binding.etAuthor.text!!.isEmpty()) {
                 binding.etAuthor.error = getString(R.string.error_empty_value)
-            } else if (binding.etQuote.text?.isEmpty() == true) {
+            } else if (binding.etQuote.text!!.isEmpty()) {
                 binding.etQuote.error = getString(R.string.error_empty_value)
             } else {
                 binding.etAuthor.error = getString(R.string.error_empty_value)
@@ -54,12 +53,14 @@ class DashboardFragment : Fragment() {
             text = binding.etQuote.text.toString(),
             author = binding.etAuthor.text.toString()
         )
-        db.collection(FirebaseAuth.getInstance().currentUser?.uid.toString()).add(quote).addOnSuccessListener {
-            Toast.makeText(requireContext(),"Безумно можно быть первым!!!", Toast.LENGTH_SHORT).show()
-            binding.etQuote.text!!.clear()
-            binding.etAuthor.text!!.clear()
-        }.addOnFailureListener{
-            Log.e("di", "save error: " + it.message )
+        db.collection(FirebaseAuth.getInstance().currentUser?.uid.toString()).add(quote)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Безумно можно быть первым!!!", Toast.LENGTH_SHORT)
+                    .show()
+                binding.etQuote.text?.clear()
+                binding.etAuthor.text?.clear()
+            }.addOnFailureListener {
+            Log.e("di", "save error: " + it.message)
         }
     }
 

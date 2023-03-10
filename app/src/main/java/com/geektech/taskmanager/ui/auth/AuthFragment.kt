@@ -13,6 +13,7 @@ import com.geektech.taskmanager.MainActivity
 import com.geektech.taskmanager.R
 import com.geektech.taskmanager.databinding.FragmentAuthBinding
 import com.geektech.taskmanager.ui.onBoard.OnBoardingFragmentDirections
+import com.geektech.taskmanager.utils.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -67,14 +68,12 @@ class AuthFragment : Fragment() {
         }
     }
 
-
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential).addOnSuccessListener { authResult ->
             findNavController().navigateUp()
         }.addOnFailureListener { e ->
-            Toast.makeText(requireContext(), e.message.toString(), Toast.LENGTH_SHORT).show()
+            showToast(e.message.toString())
         }
     }
-
 }

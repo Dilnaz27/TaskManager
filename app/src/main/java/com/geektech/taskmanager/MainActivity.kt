@@ -1,6 +1,7 @@
 package com.geektech.taskmanager
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,6 +16,7 @@ import com.geektech.taskmanager.data.local.Pref
 import com.geektech.taskmanager.databinding.ActivityMainBinding
 import com.geektech.taskmanager.ui.home.HomeFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dashboard,
                 R.id.navigation_notifications,
                 R.id.taskFragment,
-                R.id.profileFragment
+                R.id.profileFragment,
+                R.id.authFragment
             )
         )
         val bottomNavFragments = arrayListOf(
@@ -64,5 +67,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navView.setupWithNavController(navController)
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.e("di", "token: $it")
+        }
     }
 }

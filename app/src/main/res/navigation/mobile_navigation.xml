@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/authFragment"
         android:name="com.geektech.taskmanager.ui.auth.AuthFragment"
-        android:label="fragment_auth"
+        android:label="Auth"
         tools:layout="@layout/fragment_auth" />
 
     <action
